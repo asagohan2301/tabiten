@@ -33,3 +33,5 @@ backend/npm-debug.log
 backend/yarn-error.log
 backend/.idea
 backend/.vscode
+backend/tools/php-cs-fixer/vendor
+.php-cs-fixer.cache
