@@ -1,6 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WeatherController;
+use App\Http\Controllers\CityController;
 
-Route::get('/weather', [WeatherController::class, 'getWeather']);
+Route::get('/cities', [CityController::class, 'index']);
