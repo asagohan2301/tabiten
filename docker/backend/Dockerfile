@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:7.4-fpm as base
 
 # 必要なパッケージをOSにインストール
 RUN apt-get update && apt-get install -y \
@@ -27,8 +27,26 @@ RUN chown -R tabiten:tabiten /var/www
 # 新しいユーザーに切り替え
 USER tabiten
 
+# 開発環境用のビルドステージ
+FROM base as development
+
 # 依存関係のインストール
 RUN composer install
+
+# ポート9000を公開
+EXPOSE 9000
+
+# PHP-FPMを起動
+CMD ["php-fpm"]
+
+# 本番環境用のビルドステージ
+FROM base as production
+
+# 依存関係のインストール（本番用）
+RUN composer install --no-dev --optimize-autoloader
+
+# キャッシュをクリアし、オプティマイズコマンドを実行
+RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 
 # ポート9000を公開
 EXPOSE 9000
