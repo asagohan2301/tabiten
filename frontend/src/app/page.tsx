@@ -1,6 +1,7 @@
 'use client'
 
 import AreaComponent from '@/components/AreaComponent'
+import MessageComponent from '@/components/MessageComponent'
 import type { Area } from '@/types/APIDataTypes'
 import { useEffect, useState } from 'react'
 
@@ -28,18 +29,21 @@ export default function Home() {
   }, [])
 
   if (loading) {
-    return <p>Loading...</p>
+    return <MessageComponent message="Loading..." />
   }
 
   if (error) {
-    return <p>エラー: {error}</p>
+    return <MessageComponent message={`エラー: ${error}`} />
   }
 
   return (
-    <main>
-      {areas.map((area) => (
-        <AreaComponent key={area.id} area={area} />
-      ))}
+    <main className="mx-auto w-2/3 pb-10">
+      <p className="text-sm">都市名をクリックすると天気を表示します。</p>
+      <div className="mt-3 flex flex-wrap gap-8">
+        {areas.map((area) => (
+          <AreaComponent key={area.id} area={area} />
+        ))}
+      </div>
     </main>
   )
 }
