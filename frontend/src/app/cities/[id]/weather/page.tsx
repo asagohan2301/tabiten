@@ -31,6 +31,12 @@ export default function Weather({ params }: { params: Params }) {
       })
   }, [params.id])
 
+  const getDayOfWeek = (dateString: string) => {
+    const daysOfWeek = ['日', '月', '火', '水', '木', '金', '土']
+    const date = new Date(dateString)
+    return daysOfWeek[date.getDay()]
+  }
+
   if (loading) {
     return <MessageComponent message="Loading..." />
   }
@@ -49,10 +55,10 @@ export default function Weather({ params }: { params: Params }) {
               key={index}
               className="flex flex-1 flex-col items-center gap-8"
             >
-              <h3 className="text-xl">
-                {date.slice(-2)}
-                <span className="ml-[2px] text-sm">(火)</span>
-              </h3>
+              <div className="flex items-center">
+                <h3 className="text-xl">{date.slice(-2)}</h3>
+                <p className="ml-[2px] text-[15px]">({getDayOfWeek(date)})</p>
+              </div>
               <div className="flex items-center justify-center">
                 <WeatherIconComponent
                   category={`${weathers.category[index]}`}
