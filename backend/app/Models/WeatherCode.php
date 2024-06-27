@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class WeatherCode extends Model
 {
-    use HasFactory;
+    public function weathers()
+    {
+        return $this->hasMany(Weather::class, 'weather_code', 'weather_code');
+    }
 }

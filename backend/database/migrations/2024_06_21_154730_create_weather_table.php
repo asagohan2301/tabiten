@@ -17,13 +17,15 @@ class CreateWeatherTable extends Migration
             $table->id();
             $table->foreignId('city_id')->constrained('cities')->onUpdate('cascade')->onDelete('cascade');
             $table->date('date')->index();
-            $table->foreignId('weather_code')->constrained('weather_codes')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('weather_code');
             $table->float('temp_max', 4, 1)->nullable();
             $table->float('temp_min', 4, 1)->nullable();
             $table->integer('precipitation_probability')->nullable();
             $table->timestamps();
 
             $table->unique(['city_id', 'date']);
+
+            $table->foreign('weather_code')->references('weather_code')->on('weather_codes')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
