@@ -47,8 +47,10 @@ export default function Weather({ params }: { params: Params }) {
 
   return (
     <main className="mx-auto w-1/2">
-      <h2>都市名</h2>
-      <div className="mt-6 flex flex-wrap">
+      <h2 className="border-b-4 pb-1 text-xl">
+        {weathers && weathers.city_name}
+      </h2>
+      <div className="mt-7 flex flex-wrap">
         {weathers &&
           weathers.date.map((date, index) => (
             <div

@@ -58,7 +58,7 @@ class WeatherController extends Controller
             ->get();
     
         if ($weathers->count() > 0) {
-            return $this->formatDBWeathersData($weathers);
+            return $this->formatDBWeathersData($city, $weathers);
         }
         return null;
     }
@@ -77,7 +77,7 @@ class WeatherController extends Controller
             return response()->json(['error' => '天気情報の取得に失敗しました'], 500);
         }
 
-        $formatted_weathers_data_from_api = $this->formatAPIWeathersData($weathers_data_from_api['daily']);
+        $formatted_weathers_data_from_api = $this->formatAPIWeathersData($city, $weathers_data_from_api['daily']);
         return $formatted_weathers_data_from_api;
     }
 
@@ -91,7 +91,7 @@ class WeatherController extends Controller
             return response()->json(['error' => '天気情報の取得に失敗しました'], 500);
         }
 
-        $formatted_weathers_data_from_api = $this->formatAPIWeathersData($weathers_data_from_api['daily']);
+        $formatted_weathers_data_from_api = $this->formatAPIWeathersData($city, $weathers_data_from_api['daily']);
         return $formatted_weathers_data_from_api;
     }
 
@@ -143,9 +143,10 @@ class WeatherController extends Controller
         }
     }
 
-    private function formatDBWeathersData(Collection $weathers): array
+    private function formatDBWeathersData(City $city, Collection $weathers): array
     {
         $formatted_data = [
+            'city_name' => $city->city_name,
             'date' => [],
             'weather_code' => [],
             'category' => [],
@@ -167,11 +168,12 @@ class WeatherController extends Controller
         return $formatted_data;
     }
 
-    private function formatAPIWeathersData(array $weathers): array
+    private function formatAPIWeathersData(City $city, array $weathers): array
     {
         $weather_code_details = $this->getWeatherCodeDetails($weathers['weather_code']);
 
         return [
+            'city_name' => $city->city_name,
             'date' => $weathers['time'],
             'weather_code' => $weathers['weather_code'],
             'category' => $weather_code_details['categories'],

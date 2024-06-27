@@ -19,6 +19,7 @@ export type City = {
 }
 
 export type Weathers = {
+  city_name: string
   date: string[]
   weather_code: number[]
   category: string[]
