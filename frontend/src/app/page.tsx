@@ -2,7 +2,7 @@
 
 export default function Home() {
   const getData = () => {
-    fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/cities`)
+    fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/cities/1/weather`)
       .then((res) => {
         return res.json()
       })
