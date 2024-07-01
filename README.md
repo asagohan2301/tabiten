@@ -7,7 +7,8 @@
 
 ## URL
 
-[TabiTen](https://www.asagohan.net/)
+~~[TabiTen](https://www.asagohan.net/)~~  
+※ 機能修正中のため停止中です。
 
 ## 機能
 
